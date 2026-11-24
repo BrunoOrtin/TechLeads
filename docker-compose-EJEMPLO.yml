@@ -1,0 +1,36 @@
+services:
+  web:
+    build: .
+    container_name: techleads_web_notas
+    ports:
+      - "8082:80"
+    volumes:
+      - ./:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.4
+    container_name: techleads_db_notas
+    environment:
+      MYSQL_ROOT_PASSWORD: contraseña #ejemplo
+      MYSQL_DATABASE: techleads_notas
+      MYSQL_USER: techleads
+      MYSQL_PASSWORD: contraseña #ejemplo
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: techleads_phpmyadmin_notas
+    environment:
+      PMA_HOST: db
+    ports:
+      - "8083:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:

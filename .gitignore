@@ -1,0 +1,5 @@
+vendor/
+.env
+/public/pujades/
+*.log
+/docker-compose.yml
